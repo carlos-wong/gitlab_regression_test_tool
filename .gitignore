@@ -9,3 +9,4 @@ rc-status-darwin-x64
 yarn-error.log
 token.txt
 querylist.txt
+package-lock.json
