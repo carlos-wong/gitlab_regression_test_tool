@@ -29,17 +29,19 @@ var global_this;
 class App extends Component {
   state = { cur_path: "/" };
   render() {
+    console.log('dump app.js rerender');
     global_this = this;
     let { redirectToReferrer } = this.state;
-    return(
-      <Router>
-        <Switch location={{pathname:this.state.cur_path}}>
-          <Route path="/about" component={About} />
-          <Route path="/abouts" component={Users} />
-          <Route path="/" exact component={Index} />
-        </Switch>
-      </Router>
-    );
+    return(<Index ></Index>)
+    // return(
+    //   <Router>
+    //     <Switch location={{pathname:this.state.cur_path}}>
+    //       <Route path="/about" component={About} />
+    //       <Route path="/abouts" component={Users} />
+    //       <Route path="/" exact component={Index} />
+    //     </Switch>
+    //   </Router>
+    // );
   }
 }
 
