@@ -6,7 +6,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Modal, Button, Divider, List, Avatar, Input } from "antd";
 import { BrowserRouter as Router, Route, Link,Redirect,Switch} from "react-router-dom";
 import { queue } from "async";
-import { Provider } from 'react-redux'
+import { Provider,connect } from 'react-redux'
 
 import VirtualList from "react-virtual-list";
 
@@ -14,10 +14,12 @@ import axios from "axios";
 
 import logo from "./logo.svg";
 import "./App.css";
+import Index from "./pages/index";
 
 
 var { ipcRenderer } = window.require("electron");
-const Index = () => <h2>Home<Button onClick={()=>{ if(global_this){global_this.setState({ cur_path: "/about"})}}}>Hicarlos</Button></h2>;
+
+
 const About = () => <h2>About</h2>;
 const Users = () => <h2>Users</h2>;
 
