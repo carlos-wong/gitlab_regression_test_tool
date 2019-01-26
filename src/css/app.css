@@ -1,0 +1,22 @@
+.fullscreen {
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vh;
+    flex-direction: row;
+}
+
+.spacetokeninput {
+    flex: 1;
+}
+
+.tokeninputcontainer {
+    flex: 6;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tokeninputcomponentwrapper {
+    margin: 0px 0px 0px 10px;
+}
