@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import gitlabapi from '../gitlabs/apis.js';
 var test_data = null;
 var test_token = "";

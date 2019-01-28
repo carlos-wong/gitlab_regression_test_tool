@@ -35,10 +35,16 @@
     "electron-dev": "concurrently \"PORT=3001 BROWSER=none yarn start\" \"wait-on http://localhost:3001 && electron .\""
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-jest": "^24.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
     "electron-builder": "^20.10.0",
     "jest": "^24.0.0",
-    "wait-on": "^2.1.0"
+    "regenerator-runtime": "^0.13.1",
+    "wait-on": "^2.1.0",
+    "webpack": "^4.29.0"
   },
   "browserslist": [
     ">0.2%",
