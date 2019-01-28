@@ -1,5 +1,6 @@
 import "babel-polyfill";
 import gitlabapi from '../gitlabs/apis.js';
+import gitlabuploadfile from "../gitlabs/api_uploadfile.js";
 var test_data = null;
 var test_token = "";
 try{
@@ -16,4 +17,10 @@ test('Login api ', async () => {
   var ret = await gitlabpaiInstance.initInstance(test_token);
   // console.log('ret is:',ret);
   expect(200).toBe(ret.status);
+});
+
+test('Uploadfileaipi',async ()=>{
+  var gitlabupload = new gitlabuploadfile();
+  var ret = await gitlabupload.uploadfile(test_token,"./src/tests/1.txt");
+  expect(ret !== null).toBe(true);
 });
