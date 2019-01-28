@@ -1,12 +1,10 @@
-export const LejuhubAction = {
-  Login:"Login"
-}
+import  LejuhubAction from './action_types';
 
 export default {
-  loginWithTokenaddTodo:(token) =>{
+  loginWithToken:(authed) =>{
     return {
       type: LejuhubAction.Login,
-      token
+      authed
     }
   }
 }

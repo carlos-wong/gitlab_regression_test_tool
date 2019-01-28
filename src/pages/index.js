@@ -3,19 +3,33 @@ import { connect } from 'react-redux'
 import { Button, Input} from "antd";
 import "../css/app.css";
 import LejuhubActions from "../actions/lejuhubactions.js";
+import gitlabapi from '../gitlabs/apis.js';
+
+
+var gitlabpaiInstance = new gitlabapi();
+
 const Search = Input.Search;
 
 
 const mapStateToProps = (state /*, ownProps*/) => {
-  console.log('state updated:',state);
+  console.log('index page state updated:',state);
   return {
-    counter: state.counter + 2
+    authed: state.authed,
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (token) => dispatch(LejuhubActions.loginwithtokenaddtodo(token)),
+    login: async (token) => {
+      var ret;
+      try {
+        ret = await gitlabpaiInstance.initInstance(token);
+        dispatch(LejuhubActions.loginWithToken(ret.status === 200));
+      } catch (err) {
+        dispatch(LejuhubActions.loginWithToken(false));
+      } finally {
+      }
+    }
   }
 }
 
@@ -24,7 +38,6 @@ class Index extends Component {
     super(props);
   }
   render() {
-    console.log('render of index',this.props.counter);
     return (<div className="fullscreen">
             <div className="spacetokeninput">
             </div>
@@ -33,7 +46,7 @@ class Index extends Component {
             placeholder="Your lejuhub token"
             enterButton="Login"
             size="large"
-            onSearch={value => console.log(value)}
+            onSearch={value => this.props.login(value)}
             />
             </div>
             <div className="spacetokeninput">
@@ -41,5 +54,6 @@ class Index extends Component {
             </div>);
   }
 }
+
 
 export default connect(mapStateToProps,mapDispatchToProps)(Index);
