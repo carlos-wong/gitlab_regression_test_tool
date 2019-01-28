@@ -15,6 +15,7 @@ import axios from "axios";
 import logo from "./logo.svg";
 import "./App.css";
 import Index from "./pages/index";
+import testcase from "./pages/testcases";
 
 
 var { ipcRenderer } = window.require("electron");
@@ -25,20 +26,27 @@ const Users = () => <h2>Users</h2>;
 
 var global_this;
 
+const mapStateToProps = (state /*, ownProps*/) => {
+  console.log('App state changed:',state.cur_path);
+  return {
+    cur_path: state.cur_path,
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+};
+
+
 
 class App extends Component {
-  state = { cur_path: "/" };
   render() {
-    console.log('dump app.js rerender');
-    global_this = this;
-    let { redirectToReferrer } = this.state;
-    // return(<Index ></Index>)
     return(
       <Router>
-        <Switch location={{pathname:this.state.cur_path}}>
-          <Route path="/about" component={About} />
-          <Route path="/abouts" component={Users} />
-          <Route path="/" exact component={Index} />
+        <Switch location={{pathname:this.props.cur_path}}>
+        <Route path="/testcase" component={testcase} />
+        <Route path="/" exact component={Index} />
         </Switch>
       </Router>
     );
@@ -47,4 +55,4 @@ class App extends Component {
 
 const styles = StyleSheet.create({});
 
-export default App;
+export default connect(mapStateToProps,mapDispatchToProps)(App);

@@ -1,4 +1,4 @@
-var gitlabapi = require('../gitlabs/apis.js');
+import gitlabapi from '../gitlabs/apis.js';
 var test_data = null;
 var test_token = "";
 try{

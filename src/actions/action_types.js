@@ -1,3 +1,4 @@
 export default {
-  Login:"Login"
+  Login:"Login",
+  Jump:"Jump",
 }
