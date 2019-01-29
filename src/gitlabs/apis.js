@@ -1,6 +1,5 @@
 var axios = require('axios');
 
-
 export default  class apis{
   async initInstance(token){
     this.token = token;

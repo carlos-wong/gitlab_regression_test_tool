@@ -7,8 +7,10 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 
 const defaultMenu = require('electron-default-menu');
-
+const gitlabuploadfile = require("../src/gitlabs/api_uploadfile.js") ;
 const { Menu, shell,ipcMain } = electron;
+
+var gitlabupload = new gitlabuploadfile();
 
 let mainWindow;
 
@@ -92,4 +94,9 @@ ipcMain.on('carlos-read-write-file', (event, arg) => {
         });
     }
     // event.returnValue = null;
+});
+
+ipcMain.on('synchronous-message', async (event, arg) => {
+  var ret = await gitlabupload.uploadfile(arg.token,arg.filepath);
+  event.returnValue = ret;
 });

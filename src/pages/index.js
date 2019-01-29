@@ -6,6 +6,8 @@ import LejuhubActions from "../actions/lejuhubactions.js";
 import pagesactions  from '../actions/pagesactions.js';
 import gitlabapi from '../gitlabs/apis.js';
 import _ from 'lodash';
+var { ipcRenderer } = window.require("electron");
+
 
 
 var gitlabpaiInstance = new gitlabapi();
@@ -63,7 +65,9 @@ class Index extends Component {
             }}
             value={this.state.showvalue}
             size="large"
-            onSearch={value => this.props.login(this.state.inputvalue)}
+            onSearch={value =>{
+              this.props.login(this.state.inputvalue);
+            }}
             />
             </div>
             <div className="spacetokeninput">

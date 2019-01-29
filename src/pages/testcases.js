@@ -5,6 +5,7 @@ import "../css/app.css";
 import LejuhubActions from "../actions/lejuhubactions.js";
 import gitlabapi from '../gitlabs/apis.js';
 import pagesactions  from '../actions/pagesactions.js';
+var { ipcRenderer } = window.require("electron");
 
 
 var gitlabpaiInstance = new gitlabapi();
@@ -33,7 +34,11 @@ class testcase extends Component {
         this.props.jump('/');
       }, 100);
     }
-    return <h1>Hi I am test case</h1>;
+    return<div>
+      <h1>Hi I am test case</h1>
+      <Button onClick={()=>{
+      }}>Test upload</Button>
+      </div>;
   }
 }
 

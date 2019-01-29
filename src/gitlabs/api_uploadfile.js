@@ -16,7 +16,7 @@ catch(e){
 
 var target = 'http://www.lejuhub.com/api/v4/projects/7/uploads';
 
-export default class gitlabuploadfile{
+class gitlabuploadfile{
   async uploadfile(token,filepath){
     var ret = await rp({ method: 'POST',
                          url: target,
@@ -31,3 +31,6 @@ export default class gitlabuploadfile{
   }
 }
 
+
+
+module.exports = gitlabuploadfile;
