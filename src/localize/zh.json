@@ -9,5 +9,7 @@
   "ExpectResult":"期望结果",
   "RealityResult":"实际结果",
   "reproductionSteps":"复现步骤 请按照 \n1.xxx\n2.xxx\n3.xxx格式填写",
-  "submit":"提交"
+  "submit":"提交",
+  "Project":"项目",
+  "Issuetitle":"QA 标题，请尽量简短的描述问题"
 }

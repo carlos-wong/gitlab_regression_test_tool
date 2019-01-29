@@ -17,8 +17,12 @@ class testcasepropertyinput extends Component {
   }
   render() {
     return(<div className="testcasepropertycontainer">
-           <Input className="testcasepropertyinput1" placeholder={this.props.firstinput || "input1"} />
-           <Input className="testcasepropertyinput2" placeholder={this.props.secondinput || "input2"} />
+           <Input className="testcasepropertyinput1" placeholder={this.props.firstinput || "input1"} onChange={newvalue=>{
+             this.props.onChange(newvalue.target.value,0);
+           }}/>
+           <Input className="testcasepropertyinput2" placeholder={this.props.secondinput || "input2"} onChange={newvalue=>{
+             this.props.onChange(newvalue.target.value,1);
+           }}/>
            </div>)
   }
 }

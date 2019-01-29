@@ -11,7 +11,29 @@ catch(e){
   console.log('require json e:',e);
 }
 
-export default function (state = {localize:zh_localize,authed:test_token? true:false,gitlabtoken:test_token || "",cur_path:"/testcase"}, action) {
+const  InitState = {
+  authed:test_token? true:false,
+  gitlabtoken:test_token || "",
+  cur_path:"/testcase",
+  localize:zh_localize,
+  testplatforms:["ios",'android','server','robot'],
+  testProjects:['mini/QA'],
+  newissue:{
+    projecturl:null,
+    appver:null,
+    robotNo:null,
+    prdReference:null,
+    robotVer:null,
+    platform:null,
+    deviceNo:null,
+    expectResult:null,
+    realityReuslt:null,
+    reproductionSteps:null,
+  }
+};
+
+
+export default function (state = InitState, action) {
   // console.log('reducer of action:',action);
   switch (action.type) {
   case action_types.Login:

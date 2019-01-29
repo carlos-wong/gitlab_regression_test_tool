@@ -15,7 +15,7 @@ var gitlabupload = new gitlabuploadfile();
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 1024, height: 680});
+    mainWindow = new BrowserWindow({width: 1048, height: 880});
     if (isDev) {
         mainWindow.webContents.openDevTools();
     }
