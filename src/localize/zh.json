@@ -1,4 +1,13 @@
 {
   "appver":"应用版本号",
-  "robotNo":"机器人编号"
+  "robotNo":"机器人编号",
+  "prdReference":"需求文档对应 commit",
+  "robotVer":"机器人固件版本号",
+  "platform":"输入平台 Andorid/iOS/Server/Robot",
+  "deviceNo":"设备具体型号，主要是手机型号",
+  "UploadFile":"上传文件",
+  "ExpectResult":"期望结果",
+  "RealityResult":"实际结果",
+  "reproductionSteps":"复现步骤 请按照 \n1.xxx\n2.xxx\n3.xxx格式填写",
+  "submit":"提交"
 }

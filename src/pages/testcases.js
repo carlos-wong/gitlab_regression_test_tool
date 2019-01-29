@@ -7,6 +7,8 @@ import gitlabapi from '../gitlabs/apis.js';
 import pagesactions  from '../actions/pagesactions.js';
 import Testcasepropertyinput from "../components/testcasepropertyinput.js";
 
+const { TextArea } = Input;
+
 
 var { ipcRenderer } = window.require("electron");
 
@@ -14,10 +16,10 @@ var { ipcRenderer } = window.require("electron");
 var gitlabpaiInstance = new gitlabapi();
 
 const mapStateToProps = (state /*, ownProps*/) => {
+  var localize = state.localize;
   return {
-    appver:state.localize.appver,
-    robotNo:state.localize.robotNo,
     authed:state.authed,
+    localize:state.localize,
   }
 };
 
@@ -41,9 +43,16 @@ class testcase extends Component {
     }
     return(
         <div className="componentcontainer">
-        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.appver} secondinput={this.props.robotNo}></Testcasepropertyinput>
-        <Button onClick={()=>{
-        }}>Test upload</Button>
+        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.localize.appver} secondinput={this.props.localize.robotNo}></Testcasepropertyinput>
+        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.localize.prdReference} secondinput={this.props.localize.robotVer}></Testcasepropertyinput>
+        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.localize.platform} secondinput={this.props.localize.deviceNo}></Testcasepropertyinput>
+        <Button type="dashed" onClick={()=>{
+        }}>{this.props.localize.UploadFile}</Button>
+        <TextArea className="testcaseinputareas" placeholder={this.props.localize.ExpectResult} autosize={{ minRows: 3}}/>
+        <TextArea className="testcaseinputareas" placeholder={this.props.localize.RealityResult} autosize={{ minRows: 3}}/>
+        <TextArea className="testcaseinputareas" placeholder={this.props.localize.reproductionSteps} autosize={{ minRows: 6}}/>
+        <Button className="testcasesubmit" type="primary" onClick={()=>{
+        }}>{this.props.localize.submit}</Button>
         </div>
     );
   }
