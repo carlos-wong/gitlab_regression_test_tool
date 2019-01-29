@@ -15,7 +15,9 @@ var gitlabpaiInstance = new gitlabapi();
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
-    authed: state.authed,
+    appver:state.localize.appver,
+    robotNo:state.localize.robotNo,
+    authed:state.authed,
   }
 };
 
@@ -39,7 +41,7 @@ class testcase extends Component {
     }
     return(
         <div className="componentcontainer">
-        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={"carlos"} secondinput={"nihao"}></Testcasepropertyinput>
+        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.appver} secondinput={this.props.robotNo}></Testcasepropertyinput>
         <Button onClick={()=>{
         }}>Test upload</Button>
         </div>

@@ -1,5 +1,6 @@
 import  action_types  from './actions/action_types.js';
 var lodash = require('lodash');
+var zh_localize = require('./localize/zh.json');
 var test_data = null;
 var test_token = null;
 try{
@@ -10,7 +11,7 @@ catch(e){
   console.log('require json e:',e);
 }
 
-export default function (state = {authed:test_token? true:false,gitlabtoken:test_token || "",cur_path:"/testcase"}, action) {
+export default function (state = {localize:zh_localize,authed:test_token? true:false,gitlabtoken:test_token || "",cur_path:"/testcase"}, action) {
   // console.log('reducer of action:',action);
   switch (action.type) {
   case action_types.Login:
