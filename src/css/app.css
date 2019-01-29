@@ -20,3 +20,32 @@
 .tokeninputcomponentwrapper {
     margin: 0px 0px 0px 10px;
 }
+
+.componentcontainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vh;
+    padding: 10px 10px 10px 10px;
+}
+
+.testcasepropertycontainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 100vh;
+    min-height: 50px;
+}
+
+.testcasepropertyinput1 {
+    flex: 1;
+    margin: 0px 5px 0px 0px;
+}
+.testcasepropertyinput2 {
+    flex: 1;
+    margin: 0px 0px 0px 5px;
+}
+
+
+
+

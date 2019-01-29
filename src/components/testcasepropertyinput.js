@@ -1,0 +1,26 @@
+import React, { Component } from "react";
+import { connect } from 'react-redux'
+import { Button, Input} from "antd";
+import "../css/app.css";
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+};
+class testcasepropertyinput extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return(<div className="testcasepropertycontainer">
+           <Input className="testcasepropertyinput1" placeholder={this.props.firstinput || "input1"} />
+           <Input className="testcasepropertyinput2" placeholder={this.props.secondinput || "input2"} />
+           </div>)
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(testcasepropertyinput);

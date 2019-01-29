@@ -5,6 +5,9 @@ import "../css/app.css";
 import LejuhubActions from "../actions/lejuhubactions.js";
 import gitlabapi from '../gitlabs/apis.js';
 import pagesactions  from '../actions/pagesactions.js';
+import Testcasepropertyinput from "../components/testcasepropertyinput.js";
+
+
 var { ipcRenderer } = window.require("electron");
 
 
@@ -34,11 +37,13 @@ class testcase extends Component {
         this.props.jump('/');
       }, 100);
     }
-    return<div>
-      <h1>Hi I am test case</h1>
-      <Button onClick={()=>{
-      }}>Test upload</Button>
-      </div>;
+    return(
+        <div className="componentcontainer">
+        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={"carlos"} secondinput={"nihao"}></Testcasepropertyinput>
+        <Button onClick={()=>{
+        }}>Test upload</Button>
+        </div>
+    );
   }
 }
 

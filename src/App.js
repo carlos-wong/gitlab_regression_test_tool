@@ -45,8 +45,8 @@ class App extends Component {
     return(
       <Router>
         <Switch location={{pathname:this.props.cur_path}}>
-        <Route path="/testcase" component={testcase} />
         <Route path="/" exact component={Index} />
+        <Route path="/testcase" component={testcase} />
         </Switch>
       </Router>
     );

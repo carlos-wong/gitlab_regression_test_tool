@@ -18,7 +18,6 @@ const Search = Input.Search;
 const mapStateToProps = (state /*, ownProps*/) => {
   console.log('index page state updated:',state);
   return {
-    authed: state.authed,
   }
 };
 
