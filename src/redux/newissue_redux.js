@@ -15,9 +15,14 @@ export default class Newissue_redux {
       reproductionSteps:null,
       qaTitle:null
     };
-    this.updatekeyword = "Update";
-    this.actions = _.keyBy(_.map(_.keys(this.newissueState),(value)=>"Update"+value))
+    this.updatekeyword = "Update"+this.constructor.name;
+    this.actions = _.keyBy(_.map(_.keys(this.newissueState),value=>this.updatekeyword+value),value=>{
+      return value.split(this.updatekeyword)[1];});
   }
+  createactions(type,valuename){
+    return type+this.constructor.name + valuename;
+  }
+
   isMatch(action){
     var split_type = action.type.split(this.updatekeyword);
     return _.includes(_.keys(this.newissueState),split_type[1]);

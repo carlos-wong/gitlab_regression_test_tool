@@ -8,7 +8,9 @@ import pagesactions  from '../actions/pagesactions.js';
 import Testcasepropertyinput from "../components/testcasepropertyinput.js";
 import Newissue_redux from '../redux/newissue_redux.js';
 
-var action_dispatchs = new Newissue_redux().actions;
+var newissue_redux = new Newissue_redux();
+
+var updateaction_dispatchs = newissue_redux.actions;
 
 
 var lodash = require('lodash');
@@ -24,7 +26,7 @@ var { ipcRenderer } = window.require("electron");
 var gitlabpaiInstance = new gitlabapi();
 
 const mapStateToProps = (state /*, ownProps*/) => {
-  console.log('dump state new issue is:',state.newissue);
+  console.log('dump state newissue is:',state.newissue);
   var localize = state.localize;
   return {
     authed:state.authed,
@@ -45,7 +47,7 @@ const mapDispatchToProps = dispatch => {
     dispatchs[key] = (value)=>{dispatch({type:key,value})};
     return dispatchs;
   }
-  _.map(_.keys(action_dispatchs),(value)=>{
+  _.map(_.mapValues(updateaction_dispatchs),(value)=>{
     dispatchs = createDispatch(dispatchs,dispatch,value);
   });
   return dispatchs;
@@ -57,10 +59,10 @@ class testcase extends Component {
   }
   CreateMenu(source,callback){
     return (
-      <Menu onClick={callback()}>
+      <Menu onClick={value=>callback(value)}>
         {
           lodash.map(source,(value)=>{
-            return <Menu.Item key={""+value}><Icon type="user" />{value}</Menu.Item>})
+            return <Menu.Item key={""+value} ><Icon type="user" />{value}</Menu.Item>})
         }
       </Menu>
     );
@@ -77,47 +79,47 @@ class testcase extends Component {
           <Testcasepropertyinput className="testcasepropertycontainer"
                                  onChange={(value,index)=>{
                                    if(index === 0){
-                                     this.props[action_dispatchs.Updateappver](value);
+                                     this.props[updateaction_dispatchs.appver](value);
+                                     // this.props[newissue_redux.updateaction(Object.getOwnPropertyNames(newissue_redux.newissueState.appver))](value);
                                    }
                                    else if(index === 1){
-                                     this.props[action_dispatchs.UpdaterobotNo](value);
+                                     this.props[updateaction_dispatchs.robotNo](value);
                                    }}}
             firstinput={this.props.localize.appver} secondinput={this.props.localize.robotNo}/>
             <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.localize.prdReference} secondinput={this.props.localize.robotVer}
                                    onChange={(value,index)=>{
                                    if(index === 0){
-                                     this.props[action_dispatchs.UpdateprdReference](value);
+                                     this.props[updateaction_dispatchs.prdReference](value);
                                    }
                                    else if(index === 1){
-                                     this.props[action_dispatchs.UpdaterobotVer](value);
+                                     this.props[updateaction_dispatchs.robotVer](value);
                                    }}}/>
         <div className="testcasepropertycontainer">
-          <Input  placeholder={this.props.localize.deviceNo || ""} onChange={newvalue=>{this.props[action_dispatchs.UpdatedeviceNo](newvalue.target.value)}}/>
+          <Input  placeholder={this.props.localize.deviceNo || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.deviceNo](newvalue.target.value)}}/>
         </div>
         <div className="testcasepropertycontainer">
-          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testplatforms,()=>{})}>
+          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testplatforms,(value)=>{this.props[updateaction_dispatchs.platform](value.key)})}>
             <Button style={{ marginLeft: 8 }}>
-              {this.props.localize.platform}<Icon type="down" />
+              {this.props.newissue.platform || this.props.localize.platform}<Icon type="down" />
             </Button>
           </Dropdown>
-          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testProjects,()=>{})} >
+          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testProjects,(value)=>{this.props[updateaction_dispatchs.projecturl](value.key)})} >
             <Button style={{ marginLeft: 8 }}>
-              {this.props.localize.Project}<Icon type="down" />
+              {this.props.newissue.projecturl || this.props.localize.Project}<Icon type="down" />
             </Button>
           </Dropdown>
         </div>
         <Button type="dashed" onClick={()=>{
           }}>{this.props.localize.UploadFile}</Button>
         <div className="testcasepropertycontainer">
-          <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[action_dispatchs.UpdateqaTitle](newvalue.target.value)}}/>
+          <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.qaTitle](newvalue.target.value)}}/>
         </div>
-        
         <TextArea className="testcaseinputareas" placeholder={this.props.localize.ExpectResult} autosize={{ minRows: 3}}
-                  onChange={newvalue=>{this.props[action_dispatchs.UpdateexpectResult](newvalue.target.value)}}></TextArea>
+                  onChange={newvalue=>{this.props[updateaction_dispatchs.expectResult](newvalue.target.value)}}></TextArea>
         <TextArea className="testcaseinputareas" placeholder={this.props.localize.RealityResult} autosize={{ minRows: 3}}
-                  onChange={newvalue=>{this.props[action_dispatchs.UpdaterealityReuslt](newvalue.target.value)}}></TextArea>
+                  onChange={newvalue=>{this.props[updateaction_dispatchs.realityReuslt](newvalue.target.value)}}></TextArea>
         <TextArea className="testcaseinputareas" placeholder={this.props.localize.reproductionSteps} autosize={{ minRows: 6}}
-                  onChange={newvalue=>{this.props[action_dispatchs.UpdatereproductionSteps](newvalue.target.value)}}></TextArea>
+                  onChange={newvalue=>{this.props[updateaction_dispatchs.reproductionSteps](newvalue.target.value)}}></TextArea>
         <Button className="testcasesubmit" type="primary" onClick={()=>{
         }}>{this.props.localize.submit}</Button>
         </div>

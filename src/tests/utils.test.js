@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var localize_zh = require('../test_data/localize.json');
+import Newissue_redux from '../redux/newissue_redux.js';
 
 var actions = ["Login","Jump"];
 
@@ -33,3 +34,8 @@ test('create dispatch reducers', ()=>{
   var split_type = action.type.split('Update');
   expect(_.includes(_.keys(actionstypes),split_type[1])).toBe(true);
 });
+
+test('Newissue_redux',()=>{
+  var test = new Newissue_redux();
+
+})
