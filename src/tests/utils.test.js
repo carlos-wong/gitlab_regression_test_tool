@@ -22,3 +22,14 @@ test('Create Actions', () => {
     UpdaterobotNo:"UpdaterobotNo",
   });
 })
+
+
+test('create dispatch reducers', ()=>{
+  var actionstypes = {
+    projecturl:null,
+    appver:null,
+  };
+  var action = {type:"Updateappver"};
+  var split_type = action.type.split('Update');
+  expect(_.includes(_.keys(actionstypes),split_type[1])).toBe(true);
+});

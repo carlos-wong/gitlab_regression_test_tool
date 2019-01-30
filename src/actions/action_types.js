@@ -6,6 +6,5 @@ var actions = ["Login","Jump","UpdateAppVersion","UpdateRobotNo","UpdateprdRefer
 
 var actionsFromLocalize =_.keyBy(_.map(_.keys(localize_zh),value=>"Update"+value) ,value=>{return value;});
 
-export default _.merge(_.keyBy(actions,(value)=>{return value;}),
-                       actionsFromLocalize) ;
+export default _.keyBy(actions,(value)=>{return value;});
 

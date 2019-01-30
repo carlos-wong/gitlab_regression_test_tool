@@ -6,7 +6,14 @@ import LejuhubActions from "../actions/lejuhubactions.js";
 import gitlabapi from '../gitlabs/apis.js';
 import pagesactions  from '../actions/pagesactions.js';
 import Testcasepropertyinput from "../components/testcasepropertyinput.js";
+import Newissue_redux from '../redux/newissue_redux.js';
+
+var action_dispatchs = new Newissue_redux().actions;
+
+
 var lodash = require('lodash');
+
+const _ = lodash;
 
 const { TextArea } = Input;
 
@@ -17,21 +24,31 @@ var { ipcRenderer } = window.require("electron");
 var gitlabpaiInstance = new gitlabapi();
 
 const mapStateToProps = (state /*, ownProps*/) => {
+  console.log('dump state new issue is:',state.newissue);
   var localize = state.localize;
   return {
     authed:state.authed,
     localize:state.localize,
     testplatforms:state.testplatforms,
     testProjects:state.testProjects,
+    newissue:state.newissue
   }
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
+  var dispatchs = {
     jump: (url) =>{
       dispatch(pagesactions.JumpTo(url));
     }
+  };
+  function createDispatch(dispatchs,dispatch,key){
+    dispatchs[key] = (value)=>{dispatch({type:key,value})};
+    return dispatchs;
   }
+  _.map(_.keys(action_dispatchs),(value)=>{
+    dispatchs = createDispatch(dispatchs,dispatch,value);
+  });
+  return dispatchs;
 };
 
 class testcase extends Component {
@@ -59,10 +76,21 @@ class testcase extends Component {
         <div className="componentcontainer">
           <Testcasepropertyinput className="testcasepropertycontainer"
                                  onChange={(value,index)=>{
-                                   console.log('dump test case value input:',index," ",value);
-            }}
+                                   if(index === 0){
+                                     this.props[action_dispatchs.Updateappver](value);
+                                   }
+                                   else if(index === 1){
+                                     this.props[action_dispatchs.UpdaterobotNo](value);
+                                   }}}
             firstinput={this.props.localize.appver} secondinput={this.props.localize.robotNo}/>
-        <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.localize.prdReference} secondinput={this.props.localize.robotVer}/>
+            <Testcasepropertyinput className="testcasepropertycontainer" firstinput={this.props.localize.prdReference} secondinput={this.props.localize.robotVer}
+                                   onChange={(value,index)=>{
+                                   if(index === 0){
+                                     this.props[action_dispatchs.UpdateprdReference](value);
+                                   }
+                                   else if(index === 1){
+                                     this.props[action_dispatchs.UpdaterobotVer](value);
+                                   }}}/>
         <div className="testcasepropertycontainer">
         <Input  placeholder={this.props.localize.deviceNo || ""} />
         </div>
