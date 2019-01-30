@@ -92,29 +92,32 @@ class testcase extends Component {
                                      this.props[action_dispatchs.UpdaterobotVer](value);
                                    }}}/>
         <div className="testcasepropertycontainer">
-        <Input  placeholder={this.props.localize.deviceNo || ""} />
+          <Input  placeholder={this.props.localize.deviceNo || ""} onChange={newvalue=>{this.props[action_dispatchs.UpdatedeviceNo](newvalue.target.value)}}/>
         </div>
         <div className="testcasepropertycontainer">
           <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testplatforms,()=>{})}>
-        <Button style={{ marginLeft: 8 }}>
-        {this.props.localize.platform}<Icon type="down" />
-        </Button>
-        </Dropdown>
-        <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testProjects,()=>{})} >
-        <Button style={{ marginLeft: 8 }}>
-        {this.props.localize.Project}<Icon type="down" />
-        </Button>
-        </Dropdown>
+            <Button style={{ marginLeft: 8 }}>
+              {this.props.localize.platform}<Icon type="down" />
+            </Button>
+          </Dropdown>
+          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testProjects,()=>{})} >
+            <Button style={{ marginLeft: 8 }}>
+              {this.props.localize.Project}<Icon type="down" />
+            </Button>
+          </Dropdown>
         </div>
         <Button type="dashed" onClick={()=>{
           }}>{this.props.localize.UploadFile}</Button>
         <div className="testcasepropertycontainer">
-        <Input  placeholder={this.props.localize.Issuetitle || ""} />
+          <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[action_dispatchs.UpdateqaTitle](newvalue.target.value)}}/>
         </div>
-
-        <TextArea className="testcaseinputareas" placeholder={this.props.localize.ExpectResult} autosize={{ minRows: 3}}/>
-        <TextArea className="testcaseinputareas" placeholder={this.props.localize.RealityResult} autosize={{ minRows: 3}}/>
-        <TextArea className="testcaseinputareas" placeholder={this.props.localize.reproductionSteps} autosize={{ minRows: 6}}/>
+        
+        <TextArea className="testcaseinputareas" placeholder={this.props.localize.ExpectResult} autosize={{ minRows: 3}}
+                  onChange={newvalue=>{this.props[action_dispatchs.UpdateexpectResult](newvalue.target.value)}}></TextArea>
+        <TextArea className="testcaseinputareas" placeholder={this.props.localize.RealityResult} autosize={{ minRows: 3}}
+                  onChange={newvalue=>{this.props[action_dispatchs.UpdaterealityReuslt](newvalue.target.value)}}></TextArea>
+        <TextArea className="testcaseinputareas" placeholder={this.props.localize.reproductionSteps} autosize={{ minRows: 6}}
+                  onChange={newvalue=>{this.props[action_dispatchs.UpdatereproductionSteps](newvalue.target.value)}}></TextArea>
         <Button className="testcasesubmit" type="primary" onClick={()=>{
         }}>{this.props.localize.submit}</Button>
         </div>

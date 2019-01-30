@@ -26,7 +26,7 @@ const  InitState = {
 
 
 export default function (state = InitState, action) {
-  console.log('reducer of action:',action);
+  // console.log('reducer of action:',action);
   if(issues_reducer.isMatch(action)){
     return issues_reducer.Handler(state,action);
   }

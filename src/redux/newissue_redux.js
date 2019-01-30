@@ -13,6 +13,7 @@ export default class Newissue_redux {
       expectResult:null,
       realityReuslt:null,
       reproductionSteps:null,
+      qaTitle:null
     };
     this.updatekeyword = "Update";
     this.actions = _.keyBy(_.map(_.keys(this.newissueState),(value)=>"Update"+value))
