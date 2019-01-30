@@ -24,6 +24,7 @@ export default class Newissue_redux {
       realityReuslt:test_token?"realityResut":null,
       reproductionSteps:test_token?"test reporduction":null,
       qaTitle:test_token?"testqatitle":null,
+      priority:"P1",
       resetIssueinfo:null,
     };
     this.updatekeyword = "Update"+this.constructor.name;
@@ -65,6 +66,7 @@ export default class Newissue_redux {
 * 机器人固件版本号(*在软件中可以看到对应的软件版本号,例如: 1234 *):${newissueState.robotVer}\n\n
 * 机器人编号,及目前机器人拥有者(*有可能需要机器人复现,这个很重要*):${newissueState.robotNo}\n
 /\label ~"${newissueState.platform}"\n\n
+/\label ~"${newissueState.priority}"\n\n
 `;
   }
 }

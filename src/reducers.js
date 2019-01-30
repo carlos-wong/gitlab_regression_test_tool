@@ -21,6 +21,7 @@ const  InitState = {
   localize:zh_localize,
   testplatforms:["iOS",'Android','server','robot'],
   testProjects:['mini/QA',"carlos/test-gitlab"],
+  issuepriority:['P0','P1','P2','P3'],
   newissue: issues_reducer.newissueState,
 };
 

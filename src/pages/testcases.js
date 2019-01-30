@@ -35,6 +35,7 @@ const mapStateToProps = (state /*, ownProps*/) => {
     testProjects:state.testProjects,
     newissue:state.newissue,
     token:state.gitlabtoken,
+    issuepriority:state.issuepriority,
   }
 };
 
@@ -120,12 +121,17 @@ class testcase extends Component {
         <div className="testcasepropertycontainer">
           <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testplatforms,(value)=>{this.props[updateaction_dispatchs.platform](value.key)})}>
             <Button style={{ marginLeft: 8 }}>
-              {this.props.newissue.platform || this.props.localize.platform}<Icon type="down" />
+              {this.props.localize.platform + ":  "}{this.props.newissue.platform || this.props.localize.platform}<Icon type="down" />
             </Button>
           </Dropdown>
           <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testProjects,(value)=>{this.props[updateaction_dispatchs.projecturl](value.key)})} >
             <Button style={{ marginLeft: 8 }}>
-              {this.props.newissue.projecturl || this.props.localize.Project}<Icon type="down" />
+              {this.props.localize.Project + ":  "}{this.props.newissue.projecturl || this.props.localize.Project}<Icon type="down" />
+            </Button>
+          </Dropdown>
+          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.issuepriority,(value)=>{this.props[updateaction_dispatchs.priority](value.key)})} >
+            <Button style={{ marginLeft: 8 }}>
+              {this.props.localize.Priority+":  "}{this.props.newissue.priority}<Icon type="down" />
             </Button>
           </Dropdown>
         </div>
