@@ -19,8 +19,8 @@ const  InitState = {
   gitlabtoken:test_token || "",
   cur_path:"/testcase",
   localize:zh_localize,
-  testplatforms:["ios",'android','server','robot'],
-  testProjects:['mini/QA'],
+  testplatforms:["iOS",'Android','server','robot'],
+  testProjects:['mini/QA',"carlos/test-gitlab"],
   newissue: issues_reducer.newissueState,
 };
 

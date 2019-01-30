@@ -13,8 +13,8 @@ catch(e){
 
 
 test('Login api ', async () => {
-  var gitlabpaiInstance = new gitlabapi();
-  var ret = await gitlabpaiInstance.initInstance(test_token);
+  var gitlabapiInstance = new gitlabapi();
+  var ret = await gitlabapiInstance.initInstance(test_token);
   // console.log('ret is:',ret);
   expect(200).toBe(ret.status);
 });
@@ -23,4 +23,11 @@ test('Uploadfileaipi',async ()=>{
   var gitlabupload = new gitlabuploadfile();
   var ret = await gitlabupload.uploadfile(test_token,"./src/tests/1.txt");
   expect(ret !== null).toBe(true);
+});
+
+test('New issue',async ()=>{
+  var gitlabapiInstance = new gitlabapi();
+  var ret = await gitlabapiInstance.initInstance(test_token);
+  ret = await gitlabapiInstance.CreateIssue(test_token,"carlos/test-gitlab","test api ","descriptio\n\n\/label ~\"1\"");
+  expect(201).toBe(ret.status);
 });

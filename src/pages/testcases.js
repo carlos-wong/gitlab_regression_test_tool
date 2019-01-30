@@ -23,7 +23,7 @@ const { TextArea } = Input;
 
 
 
-var gitlabpaiInstance = new gitlabapi();
+var gitlabapiInstance = new gitlabapi();
 
 const mapStateToProps = (state /*, ownProps*/) => {
   console.log('dump state newissue is:',state.newissue);
@@ -57,6 +57,13 @@ const mapDispatchToProps = dispatch => {
 class testcase extends Component {
   constructor(props) {
     super(props);
+    gitlabapiInstance.initInstance(this.props.token)
+      .then(()=>{
+        
+      })
+      .catch((e)=>{
+        
+      });
     this.state = {
       uploadingfile:false
     };
@@ -132,15 +139,27 @@ class testcase extends Component {
 
           }}>{this.props.localize.UploadFile}</Button>
         <div className="testcasepropertycontainer">
-          <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.qaTitle](newvalue.target.value)}}/>
+          <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.qaTitle](newvalue.target.value)}}
+            value={this.props.newissue.qaTitle}/>
         </div>
         <TextArea className="testcaseinputareas" placeholder={this.props.localize.ExpectResult} autosize={{ minRows: 3}}
+                  value={this.props.newissue.expectResult}
                   onChange={newvalue=>{this.props[updateaction_dispatchs.expectResult](newvalue.target.value)}}></TextArea>
         <TextArea className="testcaseinputareas" placeholder={this.props.localize.RealityResult} autosize={{ minRows: 3}}
+                  value={this.props.newissue.realityReuslt}
                   onChange={newvalue=>{this.props[updateaction_dispatchs.realityReuslt](newvalue.target.value)}}></TextArea>
         <TextArea className="testcaseinputareas" placeholder={this.props.localize.reproductionSteps} autosize={{ minRows: 6}}
+                  value={this.props.newissue.reproductionSteps}
                   onChange={newvalue=>{this.props[updateaction_dispatchs.reproductionSteps](newvalue.target.value)}}></TextArea>
         <Button className="testcasesubmit" type="primary" onClick={()=>{
+            gitlabapiInstance.CreateIssue(this.props.token,this.props.newissue.projecturl,this.props.newissue.qaTitle,newissue_redux.formatDescription(this.props.newissue))
+            .then(()=>{
+              
+            })
+            .catch((e)=>{
+              console.log('create issue error:',e);
+            });
+            this.props[updateaction_dispatchs.resetIssueinfo]();
         }}>{this.props.localize.submit}</Button>
         </div>
     );

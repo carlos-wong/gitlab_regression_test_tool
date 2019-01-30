@@ -1,6 +1,7 @@
 var axios = require('axios');
 
 export default  class apis{
+
   async initInstance(token){
     this.token = token;
     this.instance = axios.create({
@@ -11,5 +12,12 @@ export default  class apis{
     let ret = await this.instance.get("/broadcast_messages");
     return ret;
   };
+
+  async CreateIssue(token,project_url,title,description){
+    return await this.instance.post('/projects/'+encodeURIComponent(project_url)+"/issues", {
+      title: title,
+      description: description
+    });
+  }
 };
 
