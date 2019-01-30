@@ -1,6 +1,6 @@
 import "babel-polyfill";
+import gitlabuploadfile from "../gitlabs/api_uploadfile.js";
 import gitlabapi from '../gitlabs/apis.js';
-const gitlabuploadfile = require("../gitlabs/api_uploadfile.js") ;
 var test_data = null;
 var test_token = "";
 try{

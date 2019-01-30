@@ -11,5 +11,7 @@
   "reproductionSteps":"复现步骤 请按照 \n1.xxx\n2.xxx\n3.xxx格式填写",
   "submit":"提交",
   "Project":"项目",
-  "Issuetitle":"QA 标题，请尽量简短的描述问题"
+  "Issuetitle":"QA 标题，请尽量简短的描述问题",
+  "UploadSuccess":"上传成功",
+  "UploadSuccessInfo":"文件已上传，对应的内容已经自动拷贝到剪切板，在对应的地方黏贴即可:"
 }

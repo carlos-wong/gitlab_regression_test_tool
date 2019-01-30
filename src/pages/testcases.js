@@ -7,20 +7,20 @@ import gitlabapi from '../gitlabs/apis.js';
 import pagesactions  from '../actions/pagesactions.js';
 import Testcasepropertyinput from "../components/testcasepropertyinput.js";
 import Newissue_redux from '../redux/newissue_redux.js';
+var { ipcRenderer } = window.require("electron");
+var lodash = require('lodash');
+
+const {dialog,clipboard} = window.require('electron').remote;
 
 var newissue_redux = new Newissue_redux();
 
 var updateaction_dispatchs = newissue_redux.actions;
-
-
-var lodash = require('lodash');
 
 const _ = lodash;
 
 const { TextArea } = Input;
 
 
-var { ipcRenderer } = window.require("electron");
 
 
 var gitlabpaiInstance = new gitlabapi();
@@ -33,7 +33,8 @@ const mapStateToProps = (state /*, ownProps*/) => {
     localize:state.localize,
     testplatforms:state.testplatforms,
     testProjects:state.testProjects,
-    newissue:state.newissue
+    newissue:state.newissue,
+    token:state.gitlabtoken,
   }
 };
 
@@ -56,7 +57,14 @@ const mapDispatchToProps = dispatch => {
 class testcase extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      uploadingfile:false
+    };
   }
+  openNotification(){
+    message.info(this.props.localize.UploadSuccessInfo);
+  }
+
   CreateMenu(source,callback){
     return (
       <Menu onClick={value=>callback(value)}>
@@ -110,6 +118,18 @@ class testcase extends Component {
           </Dropdown>
         </div>
         <Button type="dashed" onClick={()=>{
+            if(!this.state.uploadingfile){
+              this.state.uploadingfile = true;
+              var filepath = dialog.showOpenDialog({properties:['openFile']},(filepath)=>{
+                if (filepath && filepath[0]) {
+                  var ret = JSON.parse(ipcRenderer.sendSync("uploadfile",{token:this.props.token,filepath:filepath[0]}));
+                  clipboard.writeText(ret.markdown);
+                  this.openNotification();
+                }
+                this.state.uploadingfile = false;
+              });
+            }
+
           }}>{this.props.localize.UploadFile}</Button>
         <div className="testcasepropertycontainer">
           <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.qaTitle](newvalue.target.value)}}/>

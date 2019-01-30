@@ -96,7 +96,7 @@ ipcMain.on('carlos-read-write-file', (event, arg) => {
     // event.returnValue = null;
 });
 
-ipcMain.on('synchronous-message', async (event, arg) => {
+ipcMain.on('uploadfile', async (event, arg) => {
   var ret = await gitlabupload.uploadfile(arg.token,arg.filepath);
   event.returnValue = ret;
 });
