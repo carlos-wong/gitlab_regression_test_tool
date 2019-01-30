@@ -14,7 +14,7 @@ export default class Newissue_redux {
   constructor() {
     this.newissueState = {
       projecturl:test_token? "carlos/test-gitlab":null,
-      appver:test_token?"appver":null,
+      appver:null,
       robotNo:test_token?"robotNo":null,
       prdReference:test_token?"prdReference":null,
       robotVer:test_token?"robotVer":null,
@@ -48,7 +48,14 @@ export default class Newissue_redux {
     return _.merge({},state,{newissue:_.merge(state.newissue)});
   }
   formatDescription(newissueState){
-    console.log('Dump format Description new issue state is:',newissueState);
+    var hasInvalidInput = false;
+    _.mapValues(newissueState,(value,key)=>{
+      if((value === null || value == "")&&(key != "resetIssueinfo"))hasInvalidInput=true;
+    })
+    console.log('dump invalid state is:',hasInvalidInput);
+    if(hasInvalidInput){
+      return null;
+    }
     return `### 期望结果: ${newissueState.expectResult}\n\n
 ### 操作结果:${newissueState.realityReuslt}\n\n
 ### 操作步骤:${newissueState.reproductionSteps}\n\n

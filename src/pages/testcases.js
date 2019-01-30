@@ -68,9 +68,14 @@ class testcase extends Component {
       uploadingfile:false
     };
   }
-  openNotification(){
+  showUploadSuccessMsg(){
     message.info(this.props.localize.UploadSuccessInfo);
   }
+  showValidInputMsg(){
+    message.info(this.props.localize.InvalidInput);
+  }
+
+
 
   CreateMenu(source,callback){
     return (
@@ -131,7 +136,7 @@ class testcase extends Component {
                 if (filepath && filepath[0]) {
                   var ret = JSON.parse(ipcRenderer.sendSync("uploadfile",{token:this.props.token,filepath:filepath[0]}));
                   clipboard.writeText(ret.markdown);
-                  this.openNotification();
+                  this.showUploadSuccessMsg();
                 }
                 this.state.uploadingfile = false;
               });
@@ -152,14 +157,19 @@ class testcase extends Component {
                   value={this.props.newissue.reproductionSteps}
                   onChange={newvalue=>{this.props[updateaction_dispatchs.reproductionSteps](newvalue.target.value)}}></TextArea>
         <Button className="testcasesubmit" type="primary" onClick={()=>{
-            gitlabapiInstance.CreateIssue(this.props.token,this.props.newissue.projecturl,this.props.newissue.qaTitle,newissue_redux.formatDescription(this.props.newissue))
-            .then(()=>{
-              
-            })
-            .catch((e)=>{
-              console.log('create issue error:',e);
-            });
-            this.props[updateaction_dispatchs.resetIssueinfo]();
+            var issue_info = newissue_redux.formatDescription(this.props.newissue);
+            if(issue_info){
+              gitlabapiInstance.CreateIssue(this.props.token,this.props.newissue.projecturl,this.props.newissue.qaTitle,issue_info)
+                .then(()=>{
+                  this.props[updateaction_dispatchs.resetIssueinfo]();
+                })
+                .catch((e)=>{
+                  console.log('create issue error:',e);
+                  this.showValidInputMsg();
+                });
+            }else{
+              this.showValidInputMsg();
+            }
         }}>{this.props.localize.submit}</Button>
         </div>
     );
