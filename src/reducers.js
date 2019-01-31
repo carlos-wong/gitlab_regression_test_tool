@@ -36,6 +36,9 @@ export default function (state = InitState, action) {
     return lodash.merge({},state,{authed:action.authed})
     break;
   case action_types.Jump:
+    if(!state.authed){
+      action.url = '/';
+    }
     return lodash.merge({},state,{cur_path:action.url});
   default:
   }

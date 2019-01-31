@@ -90,11 +90,6 @@ class testcase extends Component {
   }
 
   render() {
-    if(!this.props.authed){
-      setTimeout(()=>{
-        this.props.jump('/');
-      }, 100);
-    }
     return(
         <div className="componentcontainer">
           <Testcasepropertyinput className="testcasepropertycontainer"
