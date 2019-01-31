@@ -68,20 +68,36 @@ class testcase extends Component {
       });
     ipcRenderer.on('uploadfile',(type,value)=>{
       type = value.type;
-      console.log('type:',type,' value is:',value);
       if(type === 'done'){
-        console.log('dump reset upload button');
+        var ret = JSON.parse(value.value);
+        if(ret.markdown){
+          clipboard.writeText(ret.markdown);
+          this.showUploadSuccessMsg();
+        }
+        else{
+          this.showUploadFailMsg();
+        }
         this.setState({
-          uploadingfile:false
+          uploadingfile:false,
+          uploadprogress:0,
         })
-      };
+      }
+      else{
+        this.setState({
+          uploadprogress:Math.round(value.value.step/value.value.total * 100.0)
+        });
+      }
     });
     this.state = {
-      uploadingfile:false
+      uploadingfile:false,
+      uploadprogress:0
     };
   }
   showUploadSuccessMsg(){
     message.info(this.props.localize.UploadSuccessInfo);
+  }
+  showUploadFailMsg(){
+    message.info(this.props.localize.UploadFailInfo);
   }
   showValidInputMsg(){
     message.info(this.props.localize.InvalidInput);
@@ -156,7 +172,7 @@ class testcase extends Component {
 
           }}>{this.props.localize.UploadFile}</Button>
         <div className="testcasepropertycontainer" style={{minHeight:!this.state.uploadingfile ? 0:"50px"}}>
-          <Progress percent={100} style={{visibility:!this.state.uploadingfile?"hidden":"visible",height:!this.state.uploadingfile ? 0:"10px",alignSelf: "center"}}/>
+          <Progress percent={this.state.uploadprogress} style={{visibility:!this.state.uploadingfile?"hidden":"visible",height:!this.state.uploadingfile ? 0:"10px",alignSelf: "center"}}/>
         </div>
         <div className="testcasepropertycontainer">
           <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.qaTitle](newvalue.target.value)}}

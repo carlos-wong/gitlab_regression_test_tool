@@ -13,6 +13,7 @@
   "Project":"项目",
   "Issuetitle":"QA 标题，请尽量简短的描述问题",
   "UploadSuccess":"上传成功",
+  "UploadFailInfo":"上传失败，请重新尝试",
   "UploadSuccessInfo":"文件已上传，对应的内容已经自动拷贝到剪切板，在对应的地方黏贴即可:",
   "InvalidInput":"请检查你输入的信息。每个部分都需要填写",
   "Priority":"优先级"
