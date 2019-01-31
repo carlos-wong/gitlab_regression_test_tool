@@ -1,0 +1,26 @@
+stages:
+  - build
+
+before_script:
+  - export LANG=en_US.UTF-8
+  - export LANGUAGE=en_US.UTF-8
+  - export LC_ALL=en_US.UTF-8
+  - export CI=false
+  - nvm use
+  - yarn install
+
+build:
+  stage: build
+  script:
+    - pwd
+    - yarn electron-build-win32
+    - yarn electron-build-mac
+    - zip -r leju-test-tool-win32-x64.zip leju-test-tool-win32-x64
+    - zip -r leju-test-tool-darwin-x64.zip leju-test-tool-darwin-x64
+    - cp leju-test-tool-darwin-x64.zip ~/Downloads/sharefiles/leju-test-tool-darwin-x64.zip
+    - cp leju-test-tool-win32-x64.zip ~/Downloads/sharefiles/leju-test-tool-win32-x64.zip
+    - node /Users/carlos/Documents/leju/APPS/send_mail/send_mail.js --group=softdev --type=testtool
+      
+  only:
+    - master
+

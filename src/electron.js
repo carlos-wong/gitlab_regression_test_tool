@@ -7,7 +7,7 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 
 const defaultMenu = require('electron-default-menu');
-const gitlabuploadfile = require("../apigitlabs/api_uploadfile.js") ;
+const gitlabuploadfile = require("./apigitlabs/api_uploadfile.js") ;
 const { Menu, shell,ipcMain } = electron;
 
 var gitlabupload = new gitlabuploadfile();
@@ -15,11 +15,11 @@ var gitlabupload = new gitlabuploadfile();
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 1048, height: 880});
+  mainWindow = new BrowserWindow({width: 1048, height: 880});
     if (isDev) {
         mainWindow.webContents.openDevTools();
     }
-    mainWindow.loadURL(isDev ? 'http://localhost:3001' : `file://${path.join(__dirname, '../build/index.html')}`);
+    mainWindow.loadURL(isDev ? 'http://localhost:3001' : `file://${path.join(__dirname, './build/index.html')}`);
     mainWindow.on('closed', () => mainWindow = null);
 
     const menu = defaultMenu(app, shell);

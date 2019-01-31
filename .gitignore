@@ -15,3 +15,6 @@ leju-test-tool-darwin-x64
 leju-test-tool-win32-x64/
 leju-test-tool-darwin-x64.zip
 leju-test-tool-win32-x64.zip
+public/electron.js
+test_data
+public

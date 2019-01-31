@@ -1,5 +1,4 @@
 var request = require('request');
-var path = require('path');
 var rp = require('request-promise');
 var fs = require('fs');
 var _ = require('lodash');
