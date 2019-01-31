@@ -11,3 +11,7 @@ token.txt
 querylist.txt
 package-lock.json
 src/test_data
+leju-test-tool-darwin-x64
+leju-test-tool-win32-x64/
+leju-test-tool-darwin-x64.zip
+leju-test-tool-win32-x64.zip
