@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
-import {   Menu, Dropdown, Button, Icon, message,Input} from "antd";
+import {   Menu, Dropdown, Button, Icon, message,Input,Progress} from "antd";
 import "../css/app.css";
 import LejuhubActions from "../actions/lejuhubactions.js";
 import gitlabapi from '../apigitlab/apis.js';
@@ -10,7 +10,8 @@ import Newissue_redux from '../redux/newissue_redux.js';
 var { ipcRenderer } = window.require("electron");
 var lodash = require('lodash');
 
-const {dialog,clipboard} = window.require('electron').remote;
+const {dialog,clipboard,fs} = window.require('electron').remote;
+
 
 var newissue_redux = new Newissue_redux();
 
@@ -65,6 +66,16 @@ class testcase extends Component {
       .catch((e)=>{
         console.log('Init gitlab api fail:',e);
       });
+    ipcRenderer.on('uploadfile',(type,value)=>{
+      type = value.type;
+      console.log('type:',type,' value is:',value);
+      if(type === 'done'){
+        console.log('dump reset upload button');
+        this.setState({
+          uploadingfile:false
+        })
+      };
+    });
     this.state = {
       uploadingfile:false
     };
@@ -90,6 +101,7 @@ class testcase extends Component {
   }
 
   render() {
+    var uploadbtnVisiable = this.state.uploadingfile?"hidden":"visible";
     return(
         <div className="componentcontainer">
           <Testcasepropertyinput className="testcasepropertycontainer"
@@ -130,20 +142,22 @@ class testcase extends Component {
             </Button>
           </Dropdown>
         </div>
-        <Button type="dashed" onClick={()=>{
+        <Button type="dashed" style={{visibility:this.state.uploadingfile?"hidden":"visible",height:this.state.uploadingfile?0:"30px"}} onClick={()=>{
             if(!this.state.uploadingfile){
-              this.state.uploadingfile = true;
               var filepath = dialog.showOpenDialog({properties:['openFile']},(filepath)=>{
                 if (filepath && filepath[0]) {
-                  var ret = JSON.parse(ipcRenderer.sendSync("uploadfile",{token:this.props.token,filepath:filepath[0]}));
-                  clipboard.writeText(ret.markdown);
-                  this.showUploadSuccessMsg();
+                  this.setState({
+                    uploadingfile:true
+                  });
+                  ipcRenderer.send("uploadfile",{token:this.props.token,filepath:filepath[0]});
                 }
-                this.state.uploadingfile = false;
               });
             }
 
           }}>{this.props.localize.UploadFile}</Button>
+        <div className="testcasepropertycontainer" style={{minHeight:!this.state.uploadingfile ? 0:"50px"}}>
+          <Progress percent={100} style={{visibility:!this.state.uploadingfile?"hidden":"visible",height:!this.state.uploadingfile ? 0:"10px",alignSelf: "center"}}/>
+        </div>
         <div className="testcasepropertycontainer">
           <Input  placeholder={this.props.localize.Issuetitle || ""} onChange={newvalue=>{this.props[updateaction_dispatchs.qaTitle](newvalue.target.value)}}
             value={this.props.newissue.qaTitle}/>

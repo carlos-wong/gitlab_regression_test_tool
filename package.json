@@ -1,6 +1,6 @@
 {
   "homepage": "./",
-  "productName":"leju-test-tool",
+  "productName": "leju-test-tool",
   "main": "public/electron.js",
   "name": "leju-test-tool",
   "version": "0.1.0",
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "ls ./src/test_data/*.json |xargs -I {} mv {} {}.old && react-scripts build",
+    "build": "mv ./src/test_data/gitlab.json ./src/test_data/gitlab.json.old && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "jest": "jest",
     "eject": "react-scripts eject",

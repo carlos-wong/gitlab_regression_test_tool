@@ -73,30 +73,12 @@ ipcMain.on('openurls', (event, arg) => {
             }
         });
     }
-    
-});
-
-ipcMain.on('carlos-gitlab-api-token',(event,arg)=>{
-    console.log('carlos-gitlab-api-token arg is:',arg);
-});
-
-ipcMain.on('carlos-read-write-file', (event, arg) => {
-    // console.log(arg,' user data path:',app.getPath('userData'));
-    if(arg.type =='read'){
-        fs.readFile(app.getPath('userData')+'/'+arg.path,'utf8',(err,data)=>{
-            event.returnValue = {err:err,data:data && data.toString()};
-        });
-    }
-    else if(arg.type =='write'){
-        fs.writeFile(app.getPath('userData')+'/'+arg.path,arg.data,'utf8',(err,data)=>{
-            // console.log('write file:',arg.path,' data:',arg.data,' err:',err);
-            event.returnValue = {err:err,data:data};
-        });
-    }
-    // event.returnValue = null;
 });
 
 ipcMain.on('uploadfile', async (event, arg) => {
-  var ret = await gitlabupload.uploadfile(arg.token,arg.filepath);
-  event.returnValue = ret;
+  var ret = await gitlabupload.uploadfile(arg.token,arg.filepath,(step,total)=>{
+    event.sender.send('uploadfile', {type:'progress',value:{step,total}});
+  },()=>{
+  });
+  event.sender.send('uploadfile',{type:'done',value:ret});
 });
