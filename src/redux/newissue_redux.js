@@ -57,9 +57,9 @@ export default class Newissue_redux {
     if(hasInvalidInput){
       return null;
     }
-    return `### 期望结果: ${newissueState.expectResult}\n\n
-### 操作结果:${newissueState.realityReuslt}\n\n
-### 操作步骤:${newissueState.reproductionSteps}\n\n
+    return `### 期望结果: \n\n${newissueState.expectResult}\n\n
+### 操作结果:\n\n${newissueState.realityReuslt}\n\n
+### 操作步骤:\n\n${newissueState.reproductionSteps}\n\n
 ### 复现信息\n\n
 * 请引用需求文档的版本(*可以减少沟通成本，加快效率 如果不知道如何引用请联系 carlos*):${newissueState.prdReference}\n
 * 软件版本号(*在软件中可以看到对应的软件版本号,例如: 1.3.7-1-g2430ee9*):${newissueState.appver}\n
