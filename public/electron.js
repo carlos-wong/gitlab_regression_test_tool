@@ -7,7 +7,7 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 
 const defaultMenu = require('electron-default-menu');
-const gitlabuploadfile = require("../src/gitlabs/api_uploadfile.js") ;
+const gitlabuploadfile = require("../apigitlabs/api_uploadfile.js") ;
 const { Menu, shell,ipcMain } = electron;
 
 var gitlabupload = new gitlabuploadfile();

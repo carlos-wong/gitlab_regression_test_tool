@@ -17,7 +17,7 @@ var issues_reducer = new Newissue_redux();
 const  InitState = {
   authed:test_token? true:false,
   gitlabtoken:test_token || "",
-  cur_path:"/testcase",
+  cur_path:test_token? "/testcase":"/",
   localize:zh_localize,
   testplatforms:["iOS",'Android','server','robot'],
   testProjects:['mini/QA',"carlos/test-gitlab"],
@@ -32,6 +32,8 @@ export default function (state = InitState, action) {
     return issues_reducer.Handler(state,action);
   }
   switch (action.type) {
+  case action_types.UploadToken:
+    return lodash.merge({},state,{gitlabtoken:action.value});
   case action_types.Login:
     return lodash.merge({},state,{authed:action.authed})
     break;

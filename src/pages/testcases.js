@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {   Menu, Dropdown, Button, Icon, message,Input} from "antd";
 import "../css/app.css";
 import LejuhubActions from "../actions/lejuhubactions.js";
-import gitlabapi from '../gitlabs/apis.js';
+import gitlabapi from '../apigitlab/apis.js';
 import pagesactions  from '../actions/pagesactions.js';
 import Testcasepropertyinput from "../components/testcasepropertyinput.js";
 import Newissue_redux from '../redux/newissue_redux.js';
@@ -63,7 +63,7 @@ class testcase extends Component {
         
       })
       .catch((e)=>{
-        
+        console.log('Init gitlab api fail:',e);
       });
     this.state = {
       uploadingfile:false

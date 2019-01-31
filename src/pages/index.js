@@ -4,7 +4,7 @@ import { Button, Input} from "antd";
 import "../css/app.css";
 import LejuhubActions from "../actions/lejuhubactions.js";
 import pagesactions  from '../actions/pagesactions.js';
-import gitlabapi from '../gitlabs/apis.js';
+import gitlabapi from '../apigitlab/apis.js';
 import _ from 'lodash';
 var { ipcRenderer } = window.require("electron");
 
@@ -29,6 +29,7 @@ const mapDispatchToProps = dispatch => {
         ret = await gitlabpaiInstance.initInstance(token);
         dispatch(LejuhubActions.loginWithToken(ret.status === 200));
         if(ret.status === 200){
+          dispatch(pagesactions.UploadToken(token));
           dispatch(pagesactions.JumpTo('/testcase'));
         }
       } catch (err) {

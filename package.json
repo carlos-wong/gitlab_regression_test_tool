@@ -1,7 +1,8 @@
 {
   "homepage": "./",
+  "productName":"leju-test-tool",
   "main": "public/electron.js",
-  "name": "leju-electorn-react-template",
+  "name": "leju-test-tool",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +10,6 @@
     "aphrodite": "^2.2.0",
     "async": "^2.6.1",
     "axios": "^0.18.0",
-    "electron": "^4.0.2",
     "electron-default-menu": "^1.0.1",
     "electron-is-dev": "^0.3.0",
     "lodash": "^4.17.5",
@@ -27,12 +27,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "ls ./src/test_data/*.json |xargs -I {} mv {} {}.old && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "jest": "jest",
     "eject": "react-scripts eject",
-    "electron-build": " npm run build && electron-packager . --ignore token.txt --overwrite ",
-    "electron-build-mac": " npm run build && electron-packager . --ignore token.txt --overwrite && open rc-status-darwin-x64/rc-status.app",
+    "electron-build": "npm run build && electron-packager . --ignore token.txt --ignore src/test_data --overwrite ",
+    "electron-build-mac": " npm run build && electron-packager . --ignore token.txt --ignore src --overwrite --platform darwin",
+    "electron-build-win32": " npm run build && electron-packager . --ignore token.txt --ignore src --overwrite --platform win32",
     "electron-dev": "concurrently \"PORT=3001 BROWSER=none yarn start\" \"wait-on http://localhost:3001 && electron .\""
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
+    "electron": "^4.0.3",
     "electron-builder": "^20.10.0",
     "jest": "^24.0.0",
     "regenerator-runtime": "^0.13.1",

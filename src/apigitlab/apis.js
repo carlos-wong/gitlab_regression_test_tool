@@ -9,7 +9,7 @@ export default  class apis{
       timeout: 10000,
       headers: { "PRIVATE-TOKEN": this.token}
     });
-    let ret = await this.instance.get("/broadcast_messages");
+    let ret = await this.instance.get("/todos");
     return ret;
   };
 

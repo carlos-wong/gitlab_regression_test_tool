@@ -6,6 +6,12 @@ export default {
       type: LejuhubAction.Jump,
       url
     }
+  },
+  UploadToken:(value)=>{
+    return {
+      type: LejuhubAction.UploadToken,
+      value
+    }
   }
 }
 
