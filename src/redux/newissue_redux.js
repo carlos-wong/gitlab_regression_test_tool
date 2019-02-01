@@ -65,6 +65,7 @@ export default class Newissue_redux {
 * 软件版本号(*在软件中可以看到对应的软件版本号,例如: 1.3.7-1-g2430ee9*):${newissueState.appver}\n
 * 机器人固件版本号(*在软件中可以看到对应的软件版本号,例如: 1234 *):${newissueState.robotVer}\n\n
 * 机器人编号,及目前机器人拥有者(*有可能需要机器人复现,这个很重要*):${newissueState.robotNo}\n
+* 设备具体型号，主要是手机型号:${newissueState.deviceNo}\n\n
 /\label ~"${newissueState.platform}"\n\n
 /\label ~"${newissueState.priority}"\n\n
 `;
