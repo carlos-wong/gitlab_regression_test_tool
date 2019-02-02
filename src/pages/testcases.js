@@ -60,8 +60,9 @@ class testcase extends Component {
   constructor(props) {
     super(props);
     gitlabapiInstance.initInstance(this.props.token)
-      .then(()=>{
-        
+      .then(async ()=>{
+        var projects = await gitlabapiInstance.QueryQAProject(this.props.token,1,100,[],(response)=>{});
+        this.props[updateaction_dispatchs.QAProjects](_.map(projects,(value)=>{return value.path_with_namespace}));
       })
       .catch((e)=>{
         console.log('Init gitlab api fail:',e);
@@ -147,7 +148,7 @@ class testcase extends Component {
               {this.props.localize.platform + ":  "}{this.props.newissue.platform || this.props.localize.platform}<Icon type="down" />
             </Button>
           </Dropdown>
-          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.testProjects,(value)=>{this.props[updateaction_dispatchs.projecturl](value.key)})} >
+          <Dropdown className="testcaseselectcomponent" overlay={this.CreateMenu(this.props.newissue.QAProjects,(value)=>{this.props[updateaction_dispatchs.projecturl](value.key)})} >
             <Button style={{ marginLeft: 8 }}>
               {this.props.localize.Project + ":  "}{this.props.newissue.projecturl || this.props.localize.Project}<Icon type="down" />
             </Button>

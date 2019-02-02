@@ -15,7 +15,7 @@ export default  class apis{
   };
 
   async QueryQAProject(token,page_index,per_page,history){
-    var ret = await this.instance.get(`/projects?page=${page_index}&per_page=${per_page}&search=QA`);
+    var ret = await this.instance.get(`/projects?page=${page_index}&per_page=${per_page}&search=QA&order_by=last_activity_at&archived=false`);
     if(ret.data.length >= per_page){
       return await this.QueryQAProject(token,page_index+1,per_page,_.concat(history,ret.data));
     }

@@ -26,6 +26,7 @@ export default class Newissue_redux {
       qaTitle:test_token?"testqatitle":null,
       priority:"P1",
       resetIssueinfo:null,
+      QAProjects:[],
     };
     this.updatekeyword = "Update"+this.constructor.name;
     this.actions = _.keyBy(_.map(_.keys(this.newissueState),value=>this.updatekeyword+value),value=>{
