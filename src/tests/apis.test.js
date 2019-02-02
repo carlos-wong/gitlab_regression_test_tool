@@ -46,12 +46,19 @@ test('uploadfilewithprogress',async ()=>{
 
 
 test('queryQAprojects',async ()=>{
+  let noQA = [];
   expect(process.env.REACTDEV).toBe("true");
   var gitlabapiInstance = new gitlabapi();
   var ret = await gitlabapiInstance.initInstance(testdata.token);
   expect(ret.status).toBe(200);
   ret = await gitlabapiInstance.QueryQAProject(testdata.token,1,6,[],(response)=>{});
-  expect(ret.length).toBe(14);
+  noQA = _.filter(ret,(value)=>value.name !="QA");
+  if(noQA.length > 0){
+    expect(noQA[0].name).toBe("QA");
+  }
   ret = await gitlabapiInstance.QueryQAProject(testdata.token,1,100,[],(response)=>{});
-  expect(ret.length).toBe(14);
+  noQA = _.filter(ret,(value)=>value.name!="QA");
+  if(noQA.length > 0){
+    expect(noQA[0].name).toBe("QA");
+  }
 });
