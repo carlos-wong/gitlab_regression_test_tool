@@ -10,14 +10,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf ./public/* && cp ./src/index.html ./public/ && react-scripts build && cp -rf build ./public/ && webpack-cli --config webpack.config.js && cp package.json ./public/package.json && cd ./public/ && rm -rf node_modules && yarn install --prod",
+    "build": "rm -rf ./public/* && cp ./src/index.html ./public/ && react-scripts build && cp -rf build ./public/ && node ./src/tools/update_info.js && webpack-cli --config webpack.config.js && cp package.json ./public/package.json && cd ./public/ && rm -rf node_modules && yarn install --prod",
     "test": "react-scripts test --env=jsdom",
     "jest": "jest",
     "webpackelectron": "webpack",
     "eject": "react-scripts eject",
     "electron-build-mac": " npm run build && electron-packager ./public --overwrite --platform darwin",
     "electron-build-win32": " npm run build && electron-packager ./public --overwrite --platform win32",
-    "electron-dev": "concurrently \"PORT=3001 REACTDEV=true BROWSER=none yarn start\" \"wait-on http://localhost:3001 && electron ./src/electron.js\"",
+    "electron-dev": "node ./src/tools/update_info.js && concurrently \"PORT=3001 REACTDEV=true BROWSER=none yarn start\" \"wait-on http://localhost:3001 && electron ./src/electron.js\"",
     "clean": "rm -rf leju-test-tool-darwin-x64* && rm -rf leju-test-tool-win32-x64"
   },
   "devDependencies": {

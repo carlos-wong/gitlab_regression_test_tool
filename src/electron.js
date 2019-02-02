@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
+const info = require('./info.js');
 
 const defaultMenu = require('electron-default-menu');
 const gitlabuploadfile = require("./apigitlabs/api_uploadfile.js") ;
@@ -16,28 +17,26 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({width: 1048, height: 880});
-    if (isDev) {
-        mainWindow.webContents.openDevTools();
-    }
-    mainWindow.loadURL(isDev ? 'http://localhost:3001' : `file://${path.join(__dirname, './build/index.html')}`);
-    mainWindow.on('closed', () => mainWindow = null);
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
+  mainWindow.loadURL(isDev ? 'http://localhost:3001' : `file://${path.join(__dirname, './build/index.html')}`);
+  mainWindow.on('closed', () => mainWindow = null);
+  mainWindow.setTitle("乐聚测试工具套件 版本: "+info.ver);
 
-    const menu = defaultMenu(app, shell);
-    
-    // Add custom menu 
-    menu.splice(4, 0, {
-        label: 'Custom',
-        submenu: [
-            {
-                label: 'Open Dev tool',
-                click: (item, focusedWindow) => {
-                    mainWindow.webContents.openDevTools();
-                }
-            }
-        ]
-    })
-    // Set top-level application menu, using modified template 
-    Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
+  const menu = defaultMenu(app, shell);
+  menu.splice(4, 0, {
+    label: 'Custom',
+    submenu: [
+      {
+        label: 'Open Dev tool',
+        click: (item, focusedWindow) => {
+          mainWindow.webContents.openDevTools();
+        }
+      }
+    ]
+  })
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 }
 
 app.on('ready', createWindow);

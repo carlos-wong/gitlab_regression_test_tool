@@ -18,3 +18,4 @@ leju-test-tool-win32-x64.zip
 public/electron.js
 test_data
 public
+src/info.js
