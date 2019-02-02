@@ -17,7 +17,7 @@
     "eject": "react-scripts eject",
     "electron-build-mac": " npm run build && electron-packager ./public --overwrite --platform darwin",
     "electron-build-win32": " npm run build && electron-packager ./public --overwrite --platform win32",
-    "electron-dev": "concurrently \"PORT=3001 BROWSER=none yarn start\" \"wait-on http://localhost:3001 && electron ./src/electron.js\"",
+    "electron-dev": "concurrently \"PORT=3001 REACTDEV=true BROWSER=none yarn start\" \"wait-on http://localhost:3001 && electron ./src/electron.js\"",
     "clean": "rm -rf leju-test-tool-darwin-x64* && rm -rf leju-test-tool-win32-x64"
   },
   "devDependencies": {

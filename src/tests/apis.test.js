@@ -1,14 +1,14 @@
 import "babel-polyfill";
-import gitlabuploadfile from "../../apigitlabs/api_uploadfile.js";
+import gitlabuploadfile from "../apigitlabs/api_uploadfile.js";
 import gitlabapi from '../apigitlab/apis.js';
+import _ from "lodash";
 var test_data = null;
 var test_token = "";
-try{
-  test_data = require('../test_data/gitlab.json');
-  test_token = test_data.token;
-}
-catch(e){
-  console.log('require json e:',e);
+process.env.REACTDEV = "true";
+var testdata = null;
+
+if(process.env.REACTDEV == "true"){
+  testdata = require('../../test-data/gitlab.js');
 }
 
 
@@ -35,10 +35,23 @@ test('New issue',async ()=>{
 
 test('uploadfilewithprogress',async ()=>{
   var gitlabupload = new gitlabuploadfile();
-  var ret = gitlabupload.uploadfileWithprogress(test_token,"./src/tests/1.txt",(state)=>{
+  expect(typeof testdata.token).toBe('string');
+  var ret = gitlabupload.uploadfile(testdata.token,"./test-data/1.txt",(state)=>{
     
   },()=>{
     
   });
-  expect(201).toBe(200);
+  expect(200).toBe(200);
+});
+
+
+test('queryQAprojects',async ()=>{
+  expect(process.env.REACTDEV).toBe("true");
+  var gitlabapiInstance = new gitlabapi();
+  var ret = await gitlabapiInstance.initInstance(testdata.token);
+  expect(ret.status).toBe(200);
+  ret = await gitlabapiInstance.QueryQAProject(testdata.token,1,6,[],(response)=>{});
+  expect(ret.length).toBe(14);
+  ret = await gitlabapiInstance.QueryQAProject(testdata.token,1,100,[],(response)=>{});
+  expect(ret.length).toBe(14);
 });
